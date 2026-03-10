@@ -10,7 +10,8 @@ function ParticleNetwork() {
   const { mouse } = useThree();
 
   const { positions, colors } = useMemo(() => {
-    const count = 1800;
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+    const count = isMobile ? 700 : 1800;
     const positions = new Float32Array(count * 3);
     const colors = new Float32Array(count * 3);
 

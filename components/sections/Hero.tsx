@@ -243,7 +243,7 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1.2, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="relative h-[420px] lg:h-[620px] hidden md:block"
+            className="relative h-[280px] sm:h-[400px] lg:h-[620px]"
           >
             <HeroSphere />
           </motion.div>

@@ -10,6 +10,7 @@ import Writing from "@/components/sections/Writing";
 import Vision from "@/components/sections/Vision";
 import Contact from "@/components/sections/Contact";
 import WhatsAppButton from "@/components/ui/WhatsAppButton";
+import ScrollFloat from "@/components/3d/ScrollFloat";
 
 export default function Home() {
   return (
@@ -17,10 +18,14 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
+        <ScrollFloat variant="divider" height={100} />
         <About />
+        <ScrollFloat variant="corner" height={80} />
         <Ventures />
         <Projects />
+        <ScrollFloat variant="projects" height={110} />
         <Skills />
+        <ScrollFloat variant="divider" height={90} scrollFactor={0.2} />
         <Experience />
         <Writing />
         <Vision />

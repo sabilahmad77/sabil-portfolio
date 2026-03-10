@@ -1,5 +1,8 @@
+"use client";
+
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import { SKILL_GROUPS } from "@/lib/constants";
+import MiniIcon3D, { type ShapeType } from "@/components/3d/MiniIcon3D";
 
 const COLOR_MAP: Record<string, string> = {
   gold: "var(--color-gold-warm)",
@@ -7,6 +10,22 @@ const COLOR_MAP: Record<string, string> = {
   indigo: "var(--color-indigo)",
   violet: "var(--color-violet)",
   emerald: "var(--color-emerald)",
+};
+
+const COLOR_HEX: Record<string, string> = {
+  gold: "#C9A655",
+  teal: "#45E3D3",
+  indigo: "#6B7FE8",
+  violet: "#9375B5",
+  emerald: "#3DD68C",
+};
+
+const SHAPE_MAP: Record<string, ShapeType> = {
+  gold: "octahedron",
+  teal: "icosahedron",
+  indigo: "dodecahedron",
+  violet: "torusKnot",
+  emerald: "sphere",
 };
 
 export default function Skills() {
@@ -52,6 +71,15 @@ export default function Skills() {
                   borderColor: "var(--color-border)",
                 }}
               >
+                {/* 3D Icon */}
+                <MiniIcon3D
+                  shape={SHAPE_MAP[group.color] ?? "octahedron"}
+                  color={COLOR_HEX[group.color] ?? "#C9A655"}
+                  accentColor="#45E3D3"
+                  size={64}
+                  className="mb-4"
+                />
+
                 {/* Header */}
                 <div className="flex items-center justify-between mb-4">
                   <h3

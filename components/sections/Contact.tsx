@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import { SITE } from "@/lib/constants";
+import MiniIcon3D from "@/components/3d/MiniIcon3D";
 
 const INTENTS = [
   {
@@ -259,6 +260,11 @@ export default function Contact() {
 
           {/* Right — Contact details */}
           <div className="space-y-6">
+            {/* 3D Decorative element */}
+            <AnimatedSection direction="right" delay={0.05} className="flex justify-center">
+              <MiniIcon3D shape="torusKnot" color="#C9A655" accentColor="#45E3D3" size={140} />
+            </AnimatedSection>
+
             <AnimatedSection direction="right" delay={0.1}>
               {/* Availability signal */}
               <div

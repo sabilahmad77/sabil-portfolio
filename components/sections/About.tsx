@@ -1,5 +1,17 @@
+"use client";
+
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import { PILLARS } from "@/lib/constants";
+import MiniIcon3D, { type ShapeType } from "@/components/3d/MiniIcon3D";
+
+const PILLAR_SHAPES: ShapeType[] = [
+  "octahedron",
+  "cone",
+  "torus",
+  "icosahedron",
+  "tetrahedron",
+];
+const PILLAR_COLORS = ["#C9A655", "#45E3D3", "#9375B5", "#6B7FE8", "#3DD68C"];
 
 export default function About() {
   return (
@@ -156,13 +168,18 @@ export default function About() {
             {PILLARS.map((pillar, i) => (
               <AnimatedSection key={pillar.title} delay={i * 0.08}>
                 <div
-                  className="p-5 rounded-xl border card-hover h-full"
+                  className="p-5 rounded-xl border card-hover h-full flex flex-col"
                   style={{
                     backgroundColor: "var(--color-surface)",
                     borderColor: "var(--color-border)",
                   }}
                 >
-                  <div className="text-2xl mb-3">{pillar.icon}</div>
+                  <MiniIcon3D
+                    shape={PILLAR_SHAPES[i]}
+                    color={PILLAR_COLORS[i]}
+                    size={72}
+                    className="mb-3"
+                  />
                   <h4
                     className="text-sm font-semibold mb-2 leading-tight"
                     style={{ color: "var(--color-cream)" }}

@@ -1,23 +1,30 @@
+"use client";
+
 import AnimatedSection from "@/components/ui/AnimatedSection";
+import MiniIcon3D, { type ShapeType } from "@/components/3d/MiniIcon3D";
 
 const FOCUS_AREAS = [
   {
-    icon: "🏛",
+    shape: "dodecahedron" as ShapeType,
+    color: "#C9A655",
     title: "RWA Tokenization at Scale",
     description: "Physical assets — art, real estate, commodities — owned and traded on-chain.",
   },
   {
-    icon: "🤖",
+    shape: "torusKnot" as ShapeType,
+    color: "#45E3D3",
     title: "AI-Augmented Creative Economies",
     description: "Valuation, provenance, and discovery powered by machine intelligence.",
   },
   {
-    icon: "🌍",
+    shape: "icosahedron" as ShapeType,
+    color: "#9375B5",
     title: "GCC-First Web3 Infrastructure",
     description: "Building the on-ramps for the world's most dynamic emerging market.",
   },
   {
-    icon: "🔗",
+    shape: "torus" as ShapeType,
+    color: "#6B7FE8",
     title: "Cross-Chain Interoperability",
     description: "Physical assets that move seamlessly across Ethereum, Polygon, and beyond.",
   },
@@ -95,7 +102,7 @@ export default function Vision() {
                   borderColor: "var(--color-border)",
                 }}
               >
-                <div className="text-2xl mb-3">{area.icon}</div>
+                <MiniIcon3D shape={area.shape} color={area.color} size={72} className="mb-3" />
                 <h4
                   className="font-semibold text-sm mb-2"
                   style={{ color: "var(--color-cream)" }}
