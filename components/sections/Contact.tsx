@@ -53,35 +53,33 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="py-24 lg:py-36"
+      className="py-16 lg:py-24"
       style={{ backgroundColor: "var(--color-navy)" }}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Header */}
-        <AnimatedSection className="text-center mb-16">
+        <AnimatedSection className="text-center mb-10">
           <p
-            className="text-xs font-semibold uppercase tracking-widest mb-4"
+            className="text-xs font-semibold uppercase tracking-widest mb-3"
             style={{ color: "var(--color-gold)" }}
           >
             Contact
           </p>
           <h2
-            className="font-display text-4xl lg:text-5xl font-bold mb-6"
+            className="font-display text-3xl lg:text-4xl font-bold mb-4"
             style={{ color: "var(--color-cream)" }}
           >
-            Let&apos;s Build
-            <br />
+            Let&apos;s Build{" "}
             <span className="italic" style={{ color: "var(--color-gold-warm)" }}>
               Something Extraordinary.
             </span>
           </h2>
-          <p className="text-lg max-w-2xl mx-auto" style={{ color: "var(--color-mist)" }}>
-            Whether you&apos;re an investor, fellow engineer, or product team looking for technical
-            leadership — I&apos;m interested in hearing from you.
+          <p className="text-base max-w-xl mx-auto" style={{ color: "var(--color-mist)" }}>
+            Investor, fellow engineer, or product team — I&apos;m interested in hearing from you.
           </p>
         </AnimatedSection>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           {/* Left — Intent selector + Form */}
           <div>
             <AnimatedSection delay={0.1}>
@@ -91,7 +89,7 @@ export default function Contact() {
               >
                 What brings you here?
               </p>
-              <div className="grid grid-cols-2 gap-3 mb-8">
+              <div className="grid grid-cols-2 gap-3 mb-6">
                 {INTENTS.map((intent) => (
                   <button
                     key={intent.id}
@@ -262,7 +260,7 @@ export default function Contact() {
           <div className="space-y-6">
             {/* 3D Decorative element */}
             <AnimatedSection direction="right" delay={0.05} className="flex justify-center">
-              <MiniIcon3D shape="torusKnot" color="#C9A655" accentColor="#45E3D3" size={140} />
+              <MiniIcon3D shape="torusKnot" color="#C9A655" accentColor="#45E3D3" size={100} />
             </AnimatedSection>
 
             <AnimatedSection direction="right" delay={0.1}>

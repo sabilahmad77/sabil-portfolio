@@ -176,96 +176,99 @@ export default function Projects() {
           </AnimatePresence>
         </div>
 
-        {/* Smart Contracts */}
+        {/* Smart Contracts — redesigned card grid */}
         <AnimatedSection>
-          <div
-            className="rounded-2xl border p-8 lg:p-10"
-            style={{
-              backgroundColor: "var(--color-surface)",
-              borderColor: "var(--color-border)",
-            }}
-          >
-            <div className="flex items-center gap-3 mb-8">
-              <div
-                className="w-10 h-10 rounded-xl flex items-center justify-center"
-                style={{ backgroundColor: "rgba(69,227,211,0.1)" }}
-              >
-                <span style={{ color: "var(--color-teal)" }}>⛓</span>
-              </div>
-              <div>
-                <h3
-                  className="font-semibold text-lg"
-                  style={{ color: "var(--color-cream)" }}
-                >
-                  Smart Contract Portfolio
-                </h3>
-                <p className="text-sm" style={{ color: "var(--color-mist)" }}>
-                  Deployed across Ethereum, Polygon, BNB Chain & testnets
-                </p>
-              </div>
+          <div className="flex items-center gap-4 mb-10">
+            <div
+              className="flex items-center justify-center w-12 h-12 rounded-2xl shrink-0"
+              style={{
+                background: "linear-gradient(135deg, rgba(69,227,211,0.15), rgba(107,127,232,0.1))",
+                border: "1px solid rgba(69,227,211,0.2)",
+              }}
+            >
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-teal)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+              </svg>
             </div>
+            <div>
+              <h3 className="font-display text-2xl font-bold" style={{ color: "var(--color-cream)" }}>
+                Smart Contract Portfolio
+              </h3>
+              <p className="text-sm mt-0.5" style={{ color: "var(--color-mist)" }}>
+                25+ contracts deployed on Ethereum, Polygon, BNB Chain &amp; testnets
+              </p>
+            </div>
+          </div>
 
-            <div className="space-y-8">
-              {CONTRACTS.map((group) => (
-                <div key={group.category}>
-                  <h4
-                    className="text-xs font-semibold uppercase tracking-widest mb-4"
-                    style={{ color: "var(--color-gold)" }}
+          <div className="space-y-10">
+            {CONTRACTS.map((group) => (
+              <div key={group.category}>
+                <div className="flex items-center gap-3 mb-5">
+                  <span
+                    className="text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full"
+                    style={{
+                      backgroundColor: "rgba(201,166,85,0.1)",
+                      color: "var(--color-gold-warm)",
+                      border: "1px solid rgba(201,166,85,0.2)",
+                    }}
                   >
                     {group.category}
-                  </h4>
-                  <div className="space-y-3">
-                    {group.items.map((contract) => (
+                  </span>
+                  <div className="flex-1 h-px" style={{ backgroundColor: "var(--color-border)" }} />
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {group.items.map((contract) => {
+                    const netColor = NETWORK_COLORS[contract.networkColor] ?? "var(--color-indigo)";
+                    return (
                       <div
                         key={contract.name}
-                        className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-xl"
-                        style={{ backgroundColor: "var(--color-surface-2)" }}
+                        className="p-5 rounded-xl border transition-all duration-300 hover:scale-[1.01]"
+                        style={{ backgroundColor: "var(--color-surface)", borderColor: "var(--color-border)" }}
+                        onMouseEnter={(e) => (e.currentTarget.style.borderColor = "rgba(201,166,85,0.35)")}
+                        onMouseLeave={(e) => (e.currentTarget.style.borderColor = "var(--color-border)")}
                       >
-                        <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+                        <div className="flex items-center justify-between mb-3">
                           <span
-                            className="text-xs px-2.5 py-1 rounded-full font-medium whitespace-nowrap"
-                            style={{
-                              backgroundColor: "rgba(107,127,232,0.1)",
-                              color: NETWORK_COLORS[contract.networkColor] ?? "var(--color-indigo)",
-                            }}
+                            className="text-xs px-2.5 py-1 rounded-full font-semibold"
+                            style={{ backgroundColor: `${netColor}18`, color: netColor, border: `1px solid ${netColor}30` }}
                           >
                             {contract.network}
                           </span>
-                          <div>
-                            <div className="text-sm font-medium" style={{ color: "var(--color-cream)" }}>
-                              {contract.name}
-                            </div>
-                            <div className="text-xs" style={{ color: "var(--color-mist)" }}>
-                              {contract.description}
-                            </div>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <code
-                            className="text-xs font-mono"
-                            style={{ color: "var(--color-teal)" }}
-                          >
-                            {contract.address}
-                          </code>
                           <a
                             href={contract.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-xs px-3 py-1.5 rounded-lg border transition-colors hover:border-[var(--color-gold)] whitespace-nowrap"
-                            style={{
-                              borderColor: "var(--color-border)",
-                              color: "var(--color-mist)",
-                            }}
+                            className="flex items-center gap-1.5 text-xs font-medium transition-colors hover:text-[var(--color-gold-warm)]"
+                            style={{ color: "var(--color-mist)" }}
                           >
-                            View Code →
+                            Explorer ↗
                           </a>
                         </div>
+                        <h4 className="font-semibold text-sm mb-1" style={{ color: "var(--color-cream)" }}>
+                          {contract.name}
+                        </h4>
+                        <p className="text-xs mb-3" style={{ color: "var(--color-mist)" }}>
+                          {contract.description}
+                        </p>
+                        <div
+                          className="flex items-center gap-2 px-3 py-2 rounded-lg"
+                          style={{ backgroundColor: "var(--color-surface-2)" }}
+                        >
+                          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="var(--color-teal)" strokeWidth="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/>
+                          </svg>
+                          <code className="text-[11px] font-mono truncate flex-1" style={{ color: "var(--color-teal)" }}>
+                            {contract.address}
+                          </code>
+                        </div>
                       </div>
-                    ))}
-                  </div>
+                    );
+                  })}
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
         </AnimatedSection>
       </div>

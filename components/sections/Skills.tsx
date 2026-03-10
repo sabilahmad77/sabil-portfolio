@@ -2,7 +2,7 @@
 
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import { SKILL_GROUPS } from "@/lib/constants";
-import MiniIcon3D, { type ShapeType } from "@/components/3d/MiniIcon3D";
+import ThematicIcon3D, { type ThemeType } from "@/components/3d/ThematicIcon3D";
 
 const COLOR_MAP: Record<string, string> = {
   gold: "var(--color-gold-warm)",
@@ -20,12 +20,14 @@ const COLOR_HEX: Record<string, string> = {
   emerald: "#3DD68C",
 };
 
-const SHAPE_MAP: Record<string, ShapeType> = {
-  gold: "octahedron",
-  teal: "icosahedron",
-  indigo: "dodecahedron",
-  violet: "torusKnot",
-  emerald: "sphere",
+// Domain-relevant 3D icons for each skill category
+// gold=Blockchain/Web3, teal=DeFi, indigo=Full-Stack, violet=Smart Contracts, emerald=AI
+const THEME_MAP: Record<string, ThemeType> = {
+  gold:    "chain",      // Blockchain & Web3 → chain links
+  teal:    "swap",       // DeFi & DApp       → exchange/swap arrows
+  indigo:  "stack",      // Full-Stack (MERN)  → layered code blocks
+  violet:  "contract",   // Smart Contracts    → code document
+  emerald: "neural",     // AI & Automation    → neural network node
 };
 
 export default function Skills() {
@@ -71,12 +73,12 @@ export default function Skills() {
                   borderColor: "var(--color-border)",
                 }}
               >
-                {/* 3D Icon */}
-                <MiniIcon3D
-                  shape={SHAPE_MAP[group.color] ?? "octahedron"}
+                {/* Domain-relevant 3D icon */}
+                <ThematicIcon3D
+                  theme={THEME_MAP[group.color] ?? "chain"}
                   color={COLOR_HEX[group.color] ?? "#C9A655"}
-                  accentColor="#45E3D3"
-                  size={64}
+                  accentColor={group.color === "gold" ? "#45E3D3" : "#C9A655"}
+                  size={72}
                   className="mb-4"
                 />
 
