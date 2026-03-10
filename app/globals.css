@@ -1,26 +1,146 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ─────────────────────────────────────────────────────────────
+   SABIL AHMAD PORTFOLIO — DESIGN TOKENS
+   Merged FANN × Ventram palette
+───────────────────────────────────────────────────────────── */
+
+@theme {
+  /* Backgrounds */
+  --color-void:      #09090E;
+  --color-abyss:     #0C1420;
+  --color-navy:      #0E1D31;
+  --color-surface:   #111827;
+  --color-surface-2: #1A2235;
+  --color-border:    #1F2E45;
+  --color-border-glow: #2A4060;
+
+  /* Gold Spectrum (primary accent — FANN #C59B48 × Ventram #AB9063) */
+  --color-gold-dim:    #7A6438;
+  --color-gold:        #B39148;
+  --color-gold-warm:   #C9A655;
+  --color-gold-bright: #E2BE7A;
+  --color-gold-halo:   #F0D898;
+
+  /* Neutrals / Text */
+  --color-cream:  #F2F1EC;
+  --color-pearl:  #D8D4C8;
+  --color-mist:   #8A90A4;
+  --color-smoke:  #4A5166;
+
+  /* Tech Accents */
+  --color-teal:        #45E3D3;
+  --color-teal-dim:    #2BA89B;
+  --color-indigo:      #6B7FE8;
+  --color-violet:      #9375B5;
+  --color-emerald:     #3DD68C;
+
+  /* Fonts */
+  --font-display: var(--font-playfair);
+  --font-sans:    var(--font-space-grotesk);
+  --font-mono:    var(--font-jetbrains);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* ─── Base ─────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-abyss);
+  color: var(--color-pearl);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  line-height: 1.7;
+  overflow-x: hidden;
 }
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--color-void); }
+::-webkit-scrollbar-thumb { background: var(--color-gold-dim); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-gold); }
+
+/* Text selection */
+::selection {
+  background: color-mix(in srgb, var(--color-gold) 35%, transparent);
+  color: var(--color-cream);
+}
+
+/* ─── Typography ────────────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--color-cream);
+}
+
+.font-display {
+  font-family: var(--font-display), Georgia, serif;
+}
+
+/* ─── Utilities ─────────────────────────────────────────────── */
+.text-gradient-gold {
+  background: linear-gradient(135deg, var(--color-gold-warm) 0%, var(--color-gold-bright) 50%, var(--color-gold-warm) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-hero {
+  background: linear-gradient(135deg, var(--color-cream) 0%, var(--color-gold-halo) 60%, var(--color-gold-warm) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(179, 145, 72, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(179, 145, 72, 0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+.glow-gold {
+  box-shadow: 0 0 30px color-mix(in srgb, var(--color-gold) 20%, transparent),
+              0 0 60px color-mix(in srgb, var(--color-gold) 10%, transparent);
+}
+
+.glow-teal {
+  box-shadow: 0 0 20px color-mix(in srgb, var(--color-teal) 25%, transparent);
+}
+
+.card-hover {
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.card-hover:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-gold) !important;
+  box-shadow: 0 20px 60px -12px color-mix(in srgb, var(--color-gold) 15%, transparent);
+}
+
+/* ─── Animations ────────────────────────────────────────────── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-12px); }
+}
+@keyframes pulse-gold {
+  0%, 100% { opacity: 0.4; }
+  50%       { opacity: 1; }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+@keyframes rotate-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.animate-float    { animation: float 6s ease-in-out infinite; }
+.animate-pulse-gold { animation: pulse-gold 2s ease-in-out infinite; }
+.animate-rotate-slow { animation: rotate-slow 20s linear infinite; }
