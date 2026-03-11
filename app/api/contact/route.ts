@@ -88,7 +88,7 @@ export async function POST(req: NextRequest) {
       body: JSON.stringify({
         from: { email: "noreply@sabilahmad.com", name: "Sabil Ahmad Portfolio" },
         to: [{ email: "info@sabilahmad.com", name: "Sabil Ahmad" }],
-        reply_to: [{ email, name }],
+        reply_to: { email, name },
         subject: `[Portfolio] ${intent} — ${name}${company ? ` · ${company}` : ""}`,
         html: htmlBody,
         text: textBody,
