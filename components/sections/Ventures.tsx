@@ -223,10 +223,10 @@ export default function Ventures() {
                     </span>
                   ))}
                 </div>
-                {v.url && v.url !== "#" && (
+                {v.url && (
                   <a
                     href={v.url}
-                    target="_blank"
+                    target={v.url !== "#" ? "_blank" : undefined}
                     rel="noopener noreferrer"
                     className="mt-4 inline-block text-xs transition-colors hover:text-[var(--color-gold-warm)]"
                     style={{ color: "var(--color-mist)" }}

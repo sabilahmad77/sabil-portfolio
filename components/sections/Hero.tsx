@@ -97,7 +97,7 @@ export default function Hero() {
     <section
       id="hero"
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
-      style={{ backgroundColor: "var(--color-abyss)" }}
+      style={{ backgroundColor: "var(--color-abyss)", isolation: "isolate" }}
     >
       {/* ── 3D Blockchain network — fills full bg ── */}
       <BlockchainBackground />
@@ -127,7 +127,7 @@ export default function Hero() {
         >
           <span className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: "var(--color-emerald)" }} />
           <span className="text-sm font-medium tracking-widest uppercase" style={{ color: "var(--color-mist)" }}>
-            CTO · FANN · Doha, Qatar
+            CTO · VentraM Group · FANN · Doha, Qatar
           </span>
           <span className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: "var(--color-emerald)" }} />
         </motion.div>

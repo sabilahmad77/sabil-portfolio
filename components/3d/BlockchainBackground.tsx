@@ -151,12 +151,15 @@ function FloatingBlock({ position, index }: { position: THREE.Vector3; index: nu
 
 export default function BlockchainBackground() {
   return (
-    <div className="absolute inset-0 pointer-events-none select-none">
+    <div
+      className="absolute inset-0 pointer-events-none select-none"
+      style={{ transform: "translateZ(0)", willChange: "auto" }}
+    >
       <Canvas
         camera={{ position: [0, 0, 8], fov: 65 }}
-        gl={{ antialias: false, alpha: true, powerPreference: "high-performance" }}
-        dpr={[1, 1.5]}
-        style={{ width: "100%", height: "100%" }}
+        gl={{ antialias: false, alpha: true, powerPreference: "high-performance", preserveDrawingBuffer: false }}
+        dpr={1}
+        style={{ width: "100%", height: "100%", imageRendering: "auto" }}
       >
         <ambientLight intensity={0.1} />
         <pointLight position={[0, 5, 5]} color="#C9A655" intensity={0.5} />

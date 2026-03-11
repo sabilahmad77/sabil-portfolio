@@ -76,6 +76,8 @@ interface ScrollFloatProps {
   height?: number;
   className?: string;
   scrollFactor?: number;
+  bgFrom?: string;
+  bgTo?: string;
 }
 
 export default function ScrollFloat({
@@ -83,6 +85,8 @@ export default function ScrollFloat({
   height = 120,
   className = "",
   scrollFactor = 0.3,
+  bgFrom,
+  bgTo,
 }: ScrollFloatProps) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
@@ -92,10 +96,16 @@ export default function ScrollFloat({
 
   const shapes = SCENE_CONFIGS[variant];
 
+  const bgStyle = bgFrom && bgTo
+    ? { background: `linear-gradient(to bottom, ${bgFrom}, ${bgTo})` }
+    : bgFrom
+    ? { backgroundColor: bgFrom }
+    : {};
+
   return (
     <motion.div
       ref={ref}
-      style={{ y, opacity, height }}
+      style={{ y, opacity, height, ...bgStyle }}
       className={`relative w-full pointer-events-none select-none ${className}`}
     >
       <motion.div style={{ rotateZ }} className="w-full h-full">

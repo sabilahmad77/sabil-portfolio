@@ -4,7 +4,6 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import { SITE } from "@/lib/constants";
-import MiniIcon3D from "@/components/3d/MiniIcon3D";
 
 const INTENTS = [
   {
@@ -42,10 +41,21 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    // Simulate form submission — wire to Resend / Formspree in production
-    await new Promise((r) => setTimeout(r, 1200));
-    setLoading(false);
-    setSubmitted(true);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...formState, intent: selectedIntentData.title }),
+      });
+      if (!res.ok) throw new Error("Failed");
+      setSubmitted(true);
+    } catch {
+      alert(
+        "Something went wrong. Please email directly at info@sabilahmad.com"
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   const selectedIntentData = INTENTS.find((i) => i.id === selectedIntent)!;
@@ -53,34 +63,53 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="py-16 lg:py-24"
+      className="py-16 lg:py-24 relative overflow-hidden"
       style={{ backgroundColor: "var(--color-navy)" }}
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        {/* Header */}
-        <AnimatedSection className="text-center mb-10">
+      {/* Subtle background glow */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse 60% 40% at 50% 100%, rgba(201,166,85,0.04) 0%, transparent 70%)",
+        }}
+      />
+
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
+        {/* ── Header ── */}
+        <AnimatedSection className="text-center mb-12">
           <p
-            className="text-xs font-semibold uppercase tracking-widest mb-3"
+            className="text-xs font-semibold uppercase tracking-widest mb-4"
             style={{ color: "var(--color-gold)" }}
           >
             Contact
           </p>
-          <h2
-            className="font-display text-3xl lg:text-4xl font-bold mb-4"
-            style={{ color: "var(--color-cream)" }}
-          >
-            Let&apos;s Build{" "}
-            <span className="italic" style={{ color: "var(--color-gold-warm)" }}>
+          <h2 className="font-display text-4xl lg:text-6xl font-bold leading-tight mb-4">
+            <span style={{ color: "var(--color-cream)" }}>Let&apos;s Build</span>
+            <br />
+            <span
+              className="italic"
+              style={{
+                background: "linear-gradient(135deg, var(--color-gold-warm) 0%, var(--color-gold) 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
               Something Extraordinary.
             </span>
           </h2>
-          <p className="text-base max-w-xl mx-auto" style={{ color: "var(--color-mist)" }}>
+          <p
+            className="text-base max-w-xl mx-auto"
+            style={{ color: "var(--color-mist)" }}
+          >
             Investor, fellow engineer, or product team — I&apos;m interested in hearing from you.
           </p>
         </AnimatedSection>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-          {/* Left — Intent selector + Form */}
+        {/* ── 2-col grid: Form | Details ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+
+          {/* ── Left: Intent selector + Form ── */}
           <div>
             <AnimatedSection delay={0.1}>
               <p
@@ -152,7 +181,7 @@ export default function Contact() {
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="grid grid-cols-2 gap-4">
                     {[
-                      { id: "name", label: "Name *", type: "text", placeholder: "Your name", required: true },
+                      { id: "name",  label: "Name *",  type: "text",  placeholder: "Your name",      required: true },
                       { id: "email", label: "Email *", type: "email", placeholder: "your@email.com", required: true },
                     ].map((field) => (
                       <div key={field.id}>
@@ -178,12 +207,8 @@ export default function Contact() {
                             border: "1px solid var(--color-border)",
                             color: "var(--color-cream)",
                           }}
-                          onFocus={(e) =>
-                            (e.target.style.borderColor = "var(--color-gold)")
-                          }
-                          onBlur={(e) =>
-                            (e.target.style.borderColor = "var(--color-border)")
-                          }
+                          onFocus={(e) => (e.target.style.borderColor = "var(--color-gold)")}
+                          onBlur={(e) =>  (e.target.style.borderColor = "var(--color-border)")}
                         />
                       </div>
                     ))}
@@ -210,7 +235,7 @@ export default function Contact() {
                         color: "var(--color-cream)",
                       }}
                       onFocus={(e) => (e.target.style.borderColor = "var(--color-gold)")}
-                      onBlur={(e) => (e.target.style.borderColor = "var(--color-border)")}
+                      onBlur={(e) =>  (e.target.style.borderColor = "var(--color-border)")}
                     />
                   </div>
 
@@ -236,7 +261,7 @@ export default function Contact() {
                         color: "var(--color-cream)",
                       }}
                       onFocus={(e) => (e.target.style.borderColor = "var(--color-gold)")}
-                      onBlur={(e) => (e.target.style.borderColor = "var(--color-border)")}
+                      onBlur={(e) =>  (e.target.style.borderColor = "var(--color-border)")}
                     />
                   </div>
 
@@ -256,31 +281,23 @@ export default function Contact() {
             </AnimatedSection>
           </div>
 
-          {/* Right — Contact details */}
-          <div className="space-y-6">
-            {/* 3D Decorative element */}
-            <AnimatedSection direction="right" delay={0.05} className="flex justify-center">
-              <MiniIcon3D shape="torusKnot" color="#C9A655" accentColor="#45E3D3" size={100} />
-            </AnimatedSection>
-
+          {/* ── Right: Availability + Contact methods + Socials ── */}
+          <div className="space-y-5">
+            {/* Availability signal */}
             <AnimatedSection direction="right" delay={0.1}>
-              {/* Availability signal */}
               <div
-                className="p-6 rounded-xl border mb-6"
+                className="p-5 rounded-xl border"
                 style={{
                   backgroundColor: "var(--color-surface)",
                   borderColor: "rgba(61,214,140,0.25)",
                 }}
               >
-                <div className="flex items-center gap-3 mb-3">
+                <div className="flex items-center gap-3 mb-2">
                   <span
-                    className="w-2.5 h-2.5 rounded-full animate-pulse"
+                    className="w-2.5 h-2.5 rounded-full animate-pulse shrink-0"
                     style={{ backgroundColor: "var(--color-emerald)" }}
                   />
-                  <span
-                    className="text-sm font-semibold"
-                    style={{ color: "var(--color-emerald)" }}
-                  >
+                  <span className="text-sm font-semibold" style={{ color: "var(--color-emerald)" }}>
                     Currently Available
                   </span>
                 </div>
@@ -293,7 +310,7 @@ export default function Contact() {
 
             {/* Contact methods */}
             <AnimatedSection direction="right" delay={0.15}>
-              <div className="space-y-4">
+              <div className="space-y-2.5">
                 {[
                   {
                     icon: "📧",
@@ -306,6 +323,12 @@ export default function Contact() {
                     label: "WhatsApp",
                     value: "+974 503 89351",
                     href: `https://wa.me/${SITE.whatsapp}?text=Hey! I found you from your portfolio.`,
+                  },
+                  {
+                    icon: "✈️",
+                    label: "Telegram",
+                    value: "@sabilahmad77",
+                    href: "https://t.me/sabilahmad77",
                   },
                   {
                     icon: "🔗",
@@ -322,11 +345,11 @@ export default function Contact() {
                 ].map((item) => (
                   <div
                     key={item.label}
-                    className="flex items-center gap-4 p-4 rounded-xl"
+                    className="flex items-center gap-4 p-3.5 rounded-xl"
                     style={{ backgroundColor: "var(--color-surface)" }}
                   >
-                    <span className="text-xl">{item.icon}</span>
-                    <div className="flex-1">
+                    <span className="text-lg">{item.icon}</span>
+                    <div className="flex-1 min-w-0">
                       <div className="text-xs mb-0.5" style={{ color: "var(--color-mist)" }}>
                         {item.label}
                       </div>
@@ -335,7 +358,7 @@ export default function Contact() {
                           href={item.href}
                           target={item.href.startsWith("http") ? "_blank" : undefined}
                           rel="noopener noreferrer"
-                          className="text-sm font-medium transition-colors hover:text-[var(--color-gold-warm)]"
+                          className="text-sm font-medium transition-colors hover:text-[var(--color-gold-warm)] truncate block"
                           style={{ color: "var(--color-pearl)" }}
                         >
                           {item.value}
@@ -354,31 +377,32 @@ export default function Contact() {
             {/* Social row */}
             <AnimatedSection direction="right" delay={0.2}>
               <div
-                className="p-6 rounded-xl border"
+                className="p-5 rounded-xl border"
                 style={{
                   backgroundColor: "var(--color-surface)",
                   borderColor: "var(--color-border)",
                 }}
               >
                 <p
-                  className="text-xs font-semibold uppercase tracking-widest mb-4"
+                  className="text-xs font-semibold uppercase tracking-widest mb-3"
                   style={{ color: "var(--color-gold)" }}
                 >
                   Follow My Work
                 </p>
-                <div className="flex flex-wrap gap-3">
+                <div className="flex flex-wrap gap-2">
                   {[
-                    { label: "GitHub", href: SITE.github },
-                    { label: "LinkedIn", href: SITE.linkedin },
+                    { label: "GitHub",    href: SITE.github },
+                    { label: "LinkedIn",  href: SITE.linkedin },
                     { label: "X / Twitter", href: SITE.twitter },
-                    { label: "Medium", href: SITE.medium },
+                    { label: "Telegram",  href: "https://t.me/sabilahmad77" },
+                    { label: "Medium",    href: SITE.medium },
                   ].map((social) => (
                     <a
                       key={social.label}
                       href={social.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-4 py-2 rounded-lg text-sm border transition-all hover:border-[var(--color-gold)] hover:text-[var(--color-gold-warm)]"
+                      className="px-3.5 py-1.5 rounded-lg text-xs font-medium border transition-all hover:border-[var(--color-gold)] hover:text-[var(--color-gold-warm)]"
                       style={{
                         borderColor: "var(--color-border)",
                         color: "var(--color-pearl)",

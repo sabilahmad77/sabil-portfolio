@@ -1,6 +1,7 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Hero from "@/components/sections/Hero";
+import HeroFeature from "@/components/sections/HeroFeature";
 import About from "@/components/sections/About";
 import Ventures from "@/components/sections/Ventures";
 import Projects from "@/components/sections/Projects";
@@ -18,14 +19,14 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
-        <ScrollFloat variant="divider" height={100} />
         <About />
-        <ScrollFloat variant="corner" height={80} />
+        <HeroFeature />
+        <ScrollFloat variant="corner" height={80} bgFrom="var(--color-abyss)" bgTo="var(--color-navy)" />
         <Ventures />
         <Projects />
-        <ScrollFloat variant="projects" height={110} />
+        <ScrollFloat variant="projects" height={110} bgFrom="var(--color-navy)" bgTo="var(--color-abyss)" />
         <Skills />
-        <ScrollFloat variant="divider" height={90} scrollFactor={0.2} />
+        <ScrollFloat variant="divider" height={90} scrollFactor={0.2} bgFrom="var(--color-abyss)" bgTo="var(--color-navy)" />
         <Experience />
         <Writing />
         <Vision />
