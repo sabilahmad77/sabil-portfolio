@@ -196,7 +196,7 @@ export const PROJECTS = [
     featured: true,
     category: ["DeFi & Tokenisation"],
     stack: ["MongoDB", "Express", "React", "Node.js", "Geth", "Solidity"],
-    image: "/projects/gold-smart-chain.jpg",
+    image: "/projects/gold-smart-chain.png",
     url: "#",
   },
   {
